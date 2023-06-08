@@ -1,8 +1,11 @@
 <template>
   <div id="app">
     <v-app>
-      <v-content>
+      <v-container grid-list-xs>
         <SeatLayout />
+
+      </v-container>
+      <v-content>
       </v-content>
     </v-app>
   </div>
