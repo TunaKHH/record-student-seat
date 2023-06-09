@@ -9,13 +9,11 @@
 </template>
 
 <script>
-// import Parent from "./components/ParentCards.vue";
 import SeatLayout from "./components/SeatLayout.vue";
 
 export default {
   name: "App",
   components: {
-    // Parent,
     SeatLayout,
   }
 };
