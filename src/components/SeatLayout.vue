@@ -80,7 +80,7 @@
 import draggable from 'vuedraggable';
 import { computed } from 'vue';
 import studentImg from '../assets/student.png';
-import { useStore } from '@/store/index';
+import { useStore } from '@/store/classroom';
 
 const classroom = useStore();
 const dragOptions = computed(() => ({
