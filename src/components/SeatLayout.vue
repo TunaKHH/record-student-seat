@@ -6,7 +6,7 @@
           <v-card-title>
             未安排座位
           </v-card-title>
-          <draggable style="margin-right: 10px" v-model="students" v-bind="dragOptions" group="group1"
+          <draggable style="margin-right: 10px" v-model="classroom.students" v-bind="dragOptions" group="group1"
             @start="drag = true" @end="drag = false" item-key="id">
             <template #item="{ element }">
               <v-card variant="outlined" width="200">
@@ -43,7 +43,7 @@
                       <v-card-title>
                         第一排
                       </v-card-title>
-                      <draggable style="margin-right: 10px" v-model="seats" v-bind="dragOptions" group="group1"
+                      <draggable style="margin-right: 10px" v-model="classroom.seats" v-bind="dragOptions" group="group1"
                         @start="drag = true" @end="drag = false" item-key="id">
                         <template #item="{ element }">
                           <v-card variant="outlined" width="200">
@@ -61,11 +61,11 @@
                 <v-row>
                   <v-col>
                     <h1>Seats</h1>
-                    {{ seats }}
+                    {{ classroom.seats }}
                   </v-col>
                   <v-col>
                     <h1>Students</h1>
-                    {{ students }}
+                    {{ classroom.students }}
                   </v-col>
                 </v-row>
               </v-container>
@@ -78,31 +78,17 @@
 </template>
 <script setup>
 import draggable from 'vuedraggable';
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import studentImg from '../assets/student.png';
+import { useStore } from '@/store/index';
 
-const seats = ref([
-  { id: 1, name: '空欄位', subtitle: '', student: null },
-]);
-
-const students = ref([
-  { id: 1, name: 'student A', subtitle: '學生的課程進度' },
-  { id: 2, name: 'student B', subtitle: '學生的課程進度' },
-  { id: 3, name: 'student C', subtitle: '學生的課程進度' },
-  { id: 4, name: 'student D', subtitle: '學生的課程進度' },
-  { id: 5, name: 'student E', subtitle: '學生的課程進度' },
-  { id: 6, name: 'student F', subtitle: '學生的課程進度' },
-  { id: 7, name: 'student G', subtitle: '學生的課程進度' },
-  { id: 8, name: 'student H', subtitle: '學生的課程進度' },
-]);
-
+const classroom = useStore();
 const dragOptions = computed(() => ({
   animation: 100,
   group: 'description',
   disabled: false,
   ghostClass: 'ghost',
 }));
-
 
 
 </script>
