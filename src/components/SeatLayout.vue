@@ -6,7 +6,7 @@
           <v-card-title>
             未安排座位
           </v-card-title>
-          <draggable style="margin-right: 10px" v-model="classroom.students" v-bind="dragOptions" group="group1"
+          <draggable style="margin-right: 10px" v-model="classroom.unseated" v-bind="dragOptions" group="group1"
             @start="drag = true" @end="drag = false" item-key="id">
             <template #item="{ element }">
               <v-card variant="outlined" width="200">
@@ -43,8 +43,8 @@
                       <v-card-title>
                         第一排
                       </v-card-title>
-                      <draggable style="margin-right: 10px" v-model="classroom.seats" v-bind="dragOptions" group="group1"
-                        @start="drag = true" @end="drag = false" item-key="id">
+                      <draggable style="margin-right: 10px" v-model="classroom.seated[0].seats" v-bind="dragOptions"
+                        group="group1" @start="drag = true" @end="drag = false" item-key="id">
                         <template #item="{ element }">
                           <v-card variant="outlined" width="200">
                             <v-avatar class="ma-3" size="125" rounded="0">
@@ -60,12 +60,12 @@
                 </v-row>
                 <v-row>
                   <v-col>
-                    <h1>Seats</h1>
-                    {{ classroom.seats }}
+                    <h1>Seated</h1>
+                    {{ classroom.seated[0].seats }}
                   </v-col>
                   <v-col>
-                    <h1>Students</h1>
-                    {{ classroom.students }}
+                    <h1>Unseated</h1>
+                    {{ classroom.unseated }}
                   </v-col>
                 </v-row>
               </v-container>
