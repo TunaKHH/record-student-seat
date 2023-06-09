@@ -40,4 +40,7 @@ export const useStore = defineStore('store', {
 
     }
   },
+  persist: {
+    enabled: true,
+  },
 });
