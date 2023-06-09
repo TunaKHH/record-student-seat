@@ -3,10 +3,7 @@
     <v-app>
       <v-container grid-list-xs>
         <SeatLayout />
-
       </v-container>
-      <v-content>
-      </v-content>
     </v-app>
   </div>
 </template>
