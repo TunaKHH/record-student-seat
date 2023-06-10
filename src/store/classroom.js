@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia';
+import studentImg from '../assets/student.png'
 
 export const useStore = defineStore('store', {
   state() {
     return {
       unseated: [// 未安排座位的學生
-        { id: 1, name: '助教一', subtitle: 'MAX' },
-        { id: 2, name: '助教二', subtitle: 'MAX' },
+        { id: 1, name: '助教一', subtitle: 'MAX', img: studentImg },
+        { id: 2, name: '助教二', subtitle: 'MAX', img: studentImg },
         // 其他学生数据...
       ],
       seated: {// 已安排座位的學生
@@ -33,7 +34,8 @@ export const useStore = defineStore('store', {
       students.forEach((student) => {
         this.unseated.push({
           name: student,
-          subtitle: '學生的課程進度'
+          subtitle: '學生的課程進度',
+          img: studentImg
         });
       });
 
@@ -41,6 +43,6 @@ export const useStore = defineStore('store', {
     }
   },
   persist: {
-    enabled: true,
+    enabled: false,
   },
 });

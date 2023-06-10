@@ -16,7 +16,7 @@
                 </v-avatar>
                 <v-card-title>{{ element.name }}</v-card-title>
                 <v-card-subtitle>
-                  <v-text-field label="進度" :model-value="element.subtitle"></v-text-field>
+                  <v-text-field label="進度" :v-model="element.subtitle"></v-text-field>
                 </v-card-subtitle>
               </v-card>
             </template>
@@ -41,7 +41,9 @@
                   </v-col>
                 </v-row>
                 <v-row>
-                  <SeatColumn v-for="index in columnCount" :key="index" :number="index" :dragOptions="dragOptions" />
+                  <v-col v-for="index in columnCount" :key="index">
+                    <SeatColumn :number="index" :dragOptions="dragOptions" />
+                  </v-col>
                 </v-row>
                 <v-row>
                   <v-col>
