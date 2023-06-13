@@ -22,7 +22,7 @@ export default {
     },
     dragOptions: {
       type: Object,
-      required: true,
+      required: false,
     },
   },
   data() {

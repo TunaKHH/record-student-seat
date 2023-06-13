@@ -8,32 +8,38 @@ export const useStore = defineStore('store', {
         {
           id: 1,
           title: '未安排座位',
+          seatLimit: -1,
           seats: [
             { id: 1, name: '助教一', progressText: 'MAX', img: studentImg },
             { id: 2, name: '助教二', progressText: 'MAX', img: studentImg },
+            { id: 3, name: '學生4', progressText: '', img: studentImg },
           ]
         },
         {// 已安排座位的學生
           id: 2,
           title: '第一排',
+          seatLimit: 3,
           seats: [
             { id: 3, name: '學生1', progressText: '', img: studentImg },
+            { id: 3, name: '學生2', progressText: '', img: studentImg },
+            { id: 3, name: '學生3', progressText: '', img: studentImg },
           ]
 
         },
         {// 已安排座位的學生
           id: 3,
-          title: '第一排',
+          title: '第二排',
+          seatLimit: 3,
           seats: [
-            { id: 4, name: '學生2', progressText: '', img: studentImg },
+            { id: 4, name: '學生5', progressText: '', img: studentImg },
           ]
 
         },
         {// 已安排座位的學生
           id: 3,
-          title: '第一排',
+          title: '第三排',
           seats: [
-            { id: 4, name: '學生2', progressText: '', img: studentImg },
+            { id: 4, name: '學生6', progressText: '', img: studentImg },
           ]
 
         }

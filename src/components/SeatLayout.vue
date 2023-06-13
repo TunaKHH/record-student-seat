@@ -40,13 +40,15 @@
   </v-container>
 </template>
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useStore } from '@/store/classroom';
 import SeatColumn from '@/components/SeatColumn';
 import AddStudentDialog from '@/components/AddStudentDialog';
 
+let classroom = ref();
+const classroomStore = useStore();
+classroom = classroomStore.classroom;
 
-const { classroom } = useStore();
 const dragOptions = computed(() => ({
   animation: 100,
   group: 'description',
@@ -56,7 +58,23 @@ const dragOptions = computed(() => ({
 
 
 const updateData = (students) => {
-  classroom.addStudents(students);
+  classroomStore.addStudents(students);
 };
+
+// 註冊state的監聽事件
+classroomStore.$subscribe((mutation, state) => {
+  // 檢查每欄seats的數量是否有超過seatLimit的數量 若超過就將多出來的人放到未安排座位的欄位
+  const unassignedRow = state.classroom.find((row) => row.title == '未安排座位');
+  state.classroom.forEach((row) => {
+    if (row.title != '未安排座位') {
+      if (row.seats.length > row.seatLimit) {
+        console.log('塞進未安排座位');
+        const unassignedStudents = row.seats.splice(row.seatLimit);
+        unassignedRow.seats.push(...unassignedStudents);
+      }
+    }
+  });
+})
+
 
 </script>
