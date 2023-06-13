@@ -22,7 +22,6 @@
                 <v-row>
                   <v-col v-for="row in classroom" :key="row.id">
                     <SeatColumn :row="row" :dragOptions="dragOptions" />
-
                   </v-col>
                 </v-row>
                 <v-row>
@@ -62,7 +61,6 @@ const updateData = (students) => {
 };
 
 // 註冊state的監聽事件
-
 classroomStore.$subscribe((mutation, state) => {
   // 檢查每欄seats的數量是否有超過seatLimit的數量 若超過就將多出來的人放到未安排座位的欄位
   const unassignedRow = state.classroom.find((row) => row.title == '未安排座位');

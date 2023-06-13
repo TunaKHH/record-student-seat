@@ -17,20 +17,18 @@ export default {
       type: Object,
       required: true,
     },
-
   },
-  data() {
+  emits: ['updateStudent'],
+  setup(props, ctx) {
+    const updateProgressText = function (progressText) {
+      ctx.emit('updateStudent', {
+        student: props.student,
+        progressText: progressText
+      });
+    };
     return {
-      localStudent: {},
+      updateProgressText,
     }
-  },
-  mounted() {
-    this.localStudent = this.student;
-  },
-  methods: {
-    updateProgressText(progressText) {
-      this.localStudent.progressText = progressText;
-    },
   },
 }
 

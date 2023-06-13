@@ -1,6 +1,37 @@
 import { defineStore } from 'pinia';
 import studentImg from '../assets/student.png'
 
+// 生成學生假資料 給seats用
+function generateStudents(length) {
+  const students = [];
+  for (let i = 0; i < length; i++) {
+    students.push({
+      id: i + 1,
+      name: `學生${i + 1}`,
+      progressText: '',
+      img: studentImg
+    });
+  }
+  return students;
+}
+
+// 生成每列的假資料
+function generateCols(length) {
+  const cols = [];
+  for (let i = 0; i < length; i++) {
+    cols.push({
+      id: i + 1,
+      title: `第${i + 1}排`,
+      seatLimit: 3,
+      seats: []
+    });
+  }
+  return cols;
+}
+
+const students = generateStudents(10);
+const cols = generateCols(3);
+
 export const useStore = defineStore('store', {
   state() {
     return {
@@ -9,40 +40,9 @@ export const useStore = defineStore('store', {
           id: 1,
           title: '未安排座位',
           seatLimit: -1,
-          seats: [
-            { id: 1, name: '助教一', progressText: 'MAX', img: studentImg },
-            { id: 2, name: '助教二', progressText: 'MAX', img: studentImg },
-            { id: 3, name: '學生4', progressText: '', img: studentImg },
-          ]
+          seats: students
         },
-        {// 已安排座位的學生
-          id: 2,
-          title: '第一排',
-          seatLimit: 3,
-          seats: [
-            { id: 3, name: '學生1', progressText: '', img: studentImg },
-            { id: 3, name: '學生2', progressText: '', img: studentImg },
-            { id: 3, name: '學生3', progressText: '', img: studentImg },
-          ]
-
-        },
-        {// 已安排座位的學生
-          id: 3,
-          title: '第二排',
-          seatLimit: 3,
-          seats: [
-            { id: 4, name: '學生5', progressText: '', img: studentImg },
-          ]
-
-        },
-        {// 已安排座位的學生
-          id: 3,
-          title: '第三排',
-          seats: [
-            { id: 4, name: '學生6', progressText: '', img: studentImg },
-          ]
-
-        }
+        ...cols
       ]
     }
 
