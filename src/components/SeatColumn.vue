@@ -1,30 +1,47 @@
 <template>
-  <v-card color="#ceffed">
+  <v-card :color="rowColor">
     <v-card-title>
-      {{ seated.title }}
+      {{ localRow.title }}
     </v-card-title>
-    <!-- <SeatCard :student="element" /> -->
-    <draggable style="min-height: 300px;" v-model="seated.seats" :dragOptions="dragOptions" group="group1"
+    <draggable style="min-height: 300px;" v-model="localRow.seats" :dragOptions="dragOptions" group="group1"
       @start="drag = true" @end="drag = false" item-key="id">
       <template #item="{ element }">
-
         <SeatCard :student="element" />
-
       </template>
     </draggable>
   </v-card>
 </template>
-<script setup>
+<script>
 import draggable from 'vuedraggable';
-import { defineProps } from 'vue';
-import { useStore } from '@/store/classroom';
 import SeatCard from './SeatCard.vue'
+export default {
+  props: {
+    row: {
+      type: Object,
+      required: true,
+    },
+    dragOptions: {
+      type: Object,
+      required: true,
+    },
+  },
+  data() {
+    return {
+      localRow: {},
+      rowColor: '#ceffed',
+    }
+  },
+  mounted() {
+    this.localRow = this.row;
+    if (this.localRow.title == '未安排座位') {
+      this.rowColor = '#ffcece';
+    }
 
-// 取得父層傳遞的資料
-const props = defineProps(['number', 'dragOptions', 'seated'])
-// defineProps(['seated'])
-
-const classroom = useStore();
-const seated = classroom.seated[props.number];
+  },
+  components: {
+    draggable,
+    SeatCard,
+  },
+}
 
 </script>
