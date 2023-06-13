@@ -4,29 +4,44 @@ import studentImg from '../assets/student.png'
 export const useStore = defineStore('store', {
   state() {
     return {
-      unseated: [// 未安排座位的學生
-        { id: 1, name: '助教一', subtitle: 'MAX', img: studentImg },
-        { id: 2, name: '助教二', subtitle: 'MAX', img: studentImg },
-        // 其他学生数据...
-      ],
-      seated: {// 已安排座位的學生
-        1: {// 座位id
+      classroom: [
+        {
+          id: 1,
+          title: '未安排座位',
+          seats: [
+            { id: 1, name: '助教一', progressText: 'MAX', img: studentImg },
+            { id: 2, name: '助教二', progressText: 'MAX', img: studentImg },
+          ]
+        },
+        {// 已安排座位的學生
+          id: 2,
           title: '第一排',
           seats: [
+            { id: 3, name: '學生1', progressText: '', img: studentImg },
           ]
+
         },
-        2: {// 座位id
-          title: '第二排',
+        {// 已安排座位的學生
+          id: 3,
+          title: '第一排',
           seats: [
+            { id: 4, name: '學生2', progressText: '', img: studentImg },
           ]
+
         },
-        3: {// 座位id
-          title: '第三排',
+        {// 已安排座位的學生
+          id: 3,
+          title: '第一排',
           seats: [
+            { id: 4, name: '學生2', progressText: '', img: studentImg },
           ]
-        },
-      },
-    };
+
+        }
+      ]
+    }
+
+
+
   },
   actions: {
     // for each 新增未安排座位的學生
@@ -34,7 +49,7 @@ export const useStore = defineStore('store', {
       students.forEach((student) => {
         this.unseated.push({
           name: student,
-          subtitle: '學生的課程進度',
+          progressText: '',
           img: studentImg
         });
       });
