@@ -10,17 +10,12 @@
     </v-row>
     <v-row>
       <v-col>
-
+        *若拖曳到超出限制的欄位，將會把最後一個學生放到未安排座位的學生名單中
       </v-col>
     </v-row>
     <v-row>
       <v-col>
         <v-container fluid>
-          <v-row>
-            <v-col>
-              左營C教室-座位表
-            </v-col>
-          </v-row>
           <v-row>
             <v-col cols="12">
               <v-container fluid>

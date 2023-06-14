@@ -28,7 +28,7 @@ function generateBlankSeats(seatLimit) {
 }
 
 // 生成每列的假資料
-function generateCols(length, seatLimit = 2) {
+function generateCols(length, seatLimit = 10) {
   const cols = [];
   for (let i = 0; i < length; i++) {
     // 生成每欄的空位

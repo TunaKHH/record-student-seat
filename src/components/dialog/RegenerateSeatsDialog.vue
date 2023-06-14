@@ -13,10 +13,8 @@
           <span class="text-h5">重新生成座位</span>
         </v-card-title>
         <v-card-text>
-          <v-container>
-            <v-text-field v-model="columnsLength" label="欄"></v-text-field>
-            <v-text-field v-model="seatsLength" label="欄中座位上限"></v-text-field>
-          </v-container>
+          <v-text-field v-model="columnsLength" label="欄"></v-text-field>
+          <v-text-field v-model="seatsLength" label="欄中座位上限"></v-text-field>
           <small>*重新生成將重置學生座位</small>
         </v-card-text>
         <v-card-actions>

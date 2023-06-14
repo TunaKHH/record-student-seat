@@ -1,5 +1,5 @@
 <template >
-  <v-card v-if="!student.isBlank" variant="outlined" width="200" class="mb-2">
+  <v-card v-if="!student.isBlank" variant="outlined" :width="`${width}rm`" class="mb-2">
     <!-- <v-avatar class="ma-3" size="125" rounded="0">
       <v-img :src="student.img"></v-img>
     </v-avatar> -->
@@ -9,11 +9,12 @@
         @update:model-value="updateProgressText"></v-text-field>
     </v-card-subtitle>
   </v-card>
-  <v-card v-else variant="tonal" width="200" class="mb-2">
+  <v-card v-else variant="tonal" :width="`${width}rm`" class="mb-2">
     <v-card-title>空位</v-card-title>
   </v-card>
 </template>
 <script>
+import { ref } from 'vue';
 export default {
   props: {
     student: {
@@ -23,6 +24,7 @@ export default {
   },
   emits: ['updateStudent'],
   setup(props, ctx) {
+    const width = ref(2);
     // 通知父層更新學生進度文字
     const updateProgressText = function (progressText) {
       ctx.emit('updateStudent', {
@@ -32,6 +34,7 @@ export default {
     };
     return {
       updateProgressText,
+      width,
     }
   },
 }
