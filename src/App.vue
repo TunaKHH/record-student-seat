@@ -4,9 +4,7 @@
       <v-container grid-list-xs>
         <v-row>
           <v-form>
-            <v-text-field v-model="columnsLength" label="欄"></v-text-field>
-            <v-text-field v-model="seatsLength" label="欄中座位上限"></v-text-field>
-            <v-btn @click="regenerateColsAndSeats" block class="mt-2">重新生成座位</v-btn>
+
           </v-form>
         </v-row>
         <SeatLayout />
@@ -32,7 +30,7 @@ export default {
     const seatsLength = ref(3)
 
     // 重新產生座位表
-    const regenerateColsAndSeats = () => {
+    const regenerateColsAndSeats = () => { // delete this
       classroomStore.regenerateColsAndSeats(columnsLength.value, seatsLength.value);
     };
     return {

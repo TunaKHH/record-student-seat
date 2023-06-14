@@ -1,6 +1,18 @@
 <template>
   <v-container fluid>
-    <AddStudentDialog :updateData="updateData" />
+    <v-row>
+      <v-col>
+        <RegenerateSeatsDialog @regenerateColsAndSeats="regenerateColsAndSeats" />
+      </v-col>
+      <v-col>
+        <AddStudentDialog :updateData="updateData" />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+
+      </v-col>
+    </v-row>
     <v-row>
       <v-col>
         <v-container fluid>
@@ -36,10 +48,10 @@
 import { computed } from 'vue';
 import { useStore } from '@/store/classroom';
 import SeatColumn from '@/components/SeatColumn';
-import AddStudentDialog from '@/components/AddStudentDialog';
+import AddStudentDialog from '@/components/dialog/AddStudentDialog';
+import RegenerateSeatsDialog from '@/components/dialog/RegenerateSeatsDialog';
 
 const classroomStore = useStore();
-
 const dragOptions = computed(() => ({
   animation: 100,
   group: 'description',
@@ -49,6 +61,11 @@ const dragOptions = computed(() => ({
 
 const updateData = (students) => {
   classroomStore.addStudents(students);
+};
+
+// 重新產生座位表
+const regenerateColsAndSeats = ({ columnsLength, seatsLength }) => {
+  classroomStore.regenerateColsAndSeats(columnsLength, seatsLength);
 };
 
 // 註冊state的監聽事件
@@ -65,7 +82,6 @@ classroomStore.$subscribe((mutation, state) => {
             unassignedRow.seats.push(student);
           }
         });
-        // unassignedRow.seats.push(...unassignedStudents);
       }
     }
   });

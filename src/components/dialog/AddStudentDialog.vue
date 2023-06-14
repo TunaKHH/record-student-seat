@@ -79,8 +79,6 @@ export default {
       });
     },
     updateParentData() {
-      console.log('updateParentData');
-      console.log(this.students);
       this.updateData(this.students);
       this.dialog = false;
     }

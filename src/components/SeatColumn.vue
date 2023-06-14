@@ -11,9 +11,6 @@
           </template>
         </draggable>
   </v-card>
-  <div>
-    {{ row.seats }}
-  </div>
 </template>
 <script>
 import draggable from 'vuedraggable';
