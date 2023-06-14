@@ -24,12 +24,6 @@
                     <SeatColumn :row="row" :dragOptions="dragOptions" />
                   </v-col>
                 </v-row>
-                <!-- <v-row>
-                  <v-col>
-                    <h1>classroomStore.classroom</h1>
-                    {{ classroomStore.classroom }}
-                  </v-col>
-                </v-row> -->
               </v-container>
             </v-col>
           </v-row>
@@ -65,7 +59,13 @@ classroomStore.$subscribe((mutation, state) => {
     if (row.title != '未安排座位') {
       if (row.seats?.length > row.seatLimit) {
         const unassignedStudents = row.seats.splice(row.seatLimit);
-        unassignedRow.seats.push(...unassignedStudents);
+        // 確認不是空位才放到未安排座位的欄位
+        unassignedStudents.forEach((student) => {
+          if (student.isBlank !== true) {
+            unassignedRow.seats.push(student);
+          }
+        });
+        // unassignedRow.seats.push(...unassignedStudents);
       }
     }
   });

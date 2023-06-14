@@ -16,21 +16,32 @@ function generateStudents(length) {
   return students;
 }
 
+function generateBlankSeats(seatLimit) {
+  const blankSeats = [];
+  for (let i = 0; i < seatLimit; i++) {
+    blankSeats.push({
+      id: uuidv4(),
+      isBlank: true
+    });
+  }
+  return blankSeats;
+}
+
 // 生成每列的假資料
 function generateCols(length, seatLimit = 2) {
   const cols = [];
   for (let i = 0; i < length; i++) {
+    // 生成每欄的空位
+    const blankSeats = generateBlankSeats(seatLimit);
     cols.push({
       id: uuidv4(),
       title: `第${i + 1}排`,
       seatLimit,
-      seats: []
+      seats: blankSeats
     });
   }
   return cols;
 }
-
-
 
 const students = generateStudents(4);
 const cols = generateCols(3);

@@ -44,7 +44,6 @@ export default {
       this.rowColor = '#ffcece';
     }
   },
-
   methods: {
     updateStudent({ student, progressText }) {
       // 取得目前所在的座位id
