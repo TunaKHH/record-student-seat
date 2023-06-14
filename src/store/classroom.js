@@ -28,7 +28,7 @@ function generateBlankSeats(seatLimit) {
 }
 
 // 生成每列的假資料
-function generateCols(length, seatLimit = 10) {
+function generateCols(length, seatLimit = 5) {
   const cols = [];
   for (let i = 0; i < length; i++) {
     // 生成每欄的空位
@@ -73,8 +73,7 @@ export const useStore = defineStore('store', {
           img: studentImg
         });
       });
-    }
-    ,
+    },
     // 重新生成欄位和座位
     regenerateColsAndSeats(colsLength, seatLimit) {
       const cols = generateCols(colsLength, seatLimit);
@@ -87,6 +86,10 @@ export const useStore = defineStore('store', {
         },
         ...cols
       ];
+    },
+    // 覆蓋classroom
+    replaceClassroom(classroom) {
+      this.classroom = classroom;
     }
   },
   persist: {

@@ -2,11 +2,6 @@
   <div id="app">
     <v-app>
       <v-container grid-list-xs>
-        <v-row>
-          <v-form>
-
-          </v-form>
-        </v-row>
         <SeatLayout />
       </v-container>
     </v-app>

@@ -7,6 +7,12 @@
       <v-col>
         <AddStudentDialog :updateData="updateData" />
       </v-col>
+      <v-col>
+        <ExportSeatsDialog :classroom="classroomStore" />
+      </v-col>
+      <v-col>
+        <ImportSeatsDialog @replaceClassroom="replaceClassroom" />
+      </v-col>
     </v-row>
     <v-row>
       <v-col>
@@ -45,6 +51,8 @@ import { useStore } from '@/store/classroom';
 import SeatColumn from '@/components/SeatColumn';
 import AddStudentDialog from '@/components/dialog/AddStudentDialog';
 import RegenerateSeatsDialog from '@/components/dialog/RegenerateSeatsDialog';
+import ExportSeatsDialog from '@/components/dialog/ExportSeatsDialog';
+import ImportSeatsDialog from '@/components/dialog/ImportSeatsDialog';
 
 const classroomStore = useStore();
 const dragOptions = computed(() => ({
@@ -63,8 +71,18 @@ const regenerateColsAndSeats = ({ columnsLength, seatsLength }) => {
   classroomStore.regenerateColsAndSeats(columnsLength, seatsLength);
 };
 
+
+// 取代座位表
+const replaceClassroom = (classroom) => {
+  // parse classroom to JSON
+  const parsedClassroom = JSON.parse(classroom);
+  classroomStore.replaceClassroom(parsedClassroom);
+};
+
 // 註冊state的監聽事件
 classroomStore.$subscribe((mutation, state) => {
+  // 匯入時classroom不是陣列的話就不執行
+  if (Array.isArray(state.classroom) === false) return
   // 檢查每欄seats的數量是否有超過seatLimit的數量 若超過就將多出來的人放到未安排座位的欄位
   const unassignedRow = state.classroom.find((row) => row.title == '未安排座位');
   state.classroom.forEach((row) => {

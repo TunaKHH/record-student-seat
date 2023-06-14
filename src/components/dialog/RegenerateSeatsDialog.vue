@@ -38,11 +38,13 @@ export default {
     }
   },
   methods: {
+    // 重新產生座位表
     regenerateColsAndSeats() {
       this.$emit('regenerateColsAndSeats', {
         columnsLength: this.columnsLength,
         seatsLength: this.seatsLength,
       })
+      // 關閉 dialog
       this.dialog = false;
     }
 
