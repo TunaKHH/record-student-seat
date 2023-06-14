@@ -107,6 +107,6 @@ export const useStore = defineStore('store', {
     }
   },
   persist: {
-    enabled: false,
+    enabled: true,
   },
 });
