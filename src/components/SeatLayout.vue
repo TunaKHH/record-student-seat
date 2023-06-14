@@ -13,6 +13,14 @@
       <v-col>
         <ImportSeatsDialog @replaceClassroom="replaceClassroom" />
       </v-col>
+      <v-col>
+        <v-btn color="error" @click="preResetClassroom">清空學生</v-btn>
+      </v-col>
+      <v-col v-if="hasReset">
+        <v-btn @click="restoreClassroom">
+          復原
+        </v-btn>
+      </v-col>
     </v-row>
     <v-row>
       <v-col>
@@ -46,7 +54,7 @@
   </v-container>
 </template>
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useStore } from '@/store/classroom';
 import SeatColumn from '@/components/SeatColumn';
 import AddStudentDialog from '@/components/dialog/AddStudentDialog';
@@ -55,6 +63,7 @@ import ExportSeatsDialog from '@/components/dialog/ExportSeatsDialog';
 import ImportSeatsDialog from '@/components/dialog/ImportSeatsDialog';
 
 const classroomStore = useStore();
+const hasReset = ref(false);
 const dragOptions = computed(() => ({
   animation: 100,
   group: 'description',
@@ -71,12 +80,30 @@ const regenerateColsAndSeats = ({ columnsLength, seatsLength }) => {
   classroomStore.regenerateColsAndSeats(columnsLength, seatsLength);
 };
 
-
 // 取代座位表
 const replaceClassroom = (classroom) => {
   // parse classroom to JSON
   const parsedClassroom = JSON.parse(classroom);
   classroomStore.replaceClassroom(parsedClassroom);
+};
+
+const preResetClassroom = () => {
+  if (confirm('確定要清空學生嗎?')) {
+    hasReset.value = true;
+    // 暫存座位表 以便清空後可以還原
+    classroomStore.tempClassroom = JSON.stringify(classroomStore.classroom);
+    classroomStore.resetClassroom();
+  }
+};
+
+// 還原座位表
+const restoreClassroom = () => {
+  // 確認是否要還原
+  if (confirm('確定要還原嗎?')) {
+    classroomStore.replaceClassroom(JSON.parse(classroomStore.tempClassroom));
+    hasReset.value = false;
+    alert('已還原');
+  }
 };
 
 // 註冊state的監聽事件

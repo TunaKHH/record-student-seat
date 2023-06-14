@@ -8,7 +8,7 @@ function generateStudents(length) {
   for (let i = 0; i < length; i++) {
     students.push({
       id: uuidv4(),
-      name: `測試用學生${i + 1}`,
+      name: `助教${i + 1}`,
       progressText: '',
       img: studentImg
     });
@@ -57,10 +57,24 @@ export const useStore = defineStore('store', {
           seats: students
         },
         ...cols
-      ]
+      ],
+      tempClassroom: []
     }
   },
   actions: {
+    resetClassroom() {
+      const students = [];
+      const cols = generateCols(3);
+      this.classroom = [
+        {
+          id: uuidv4(),
+          title: '未安排座位',
+          seatLimit: -1,
+          seats: students
+        },
+        ...cols
+      ];
+    },
     // 新增學生們到未安排的座位
     addStudents(students) {
       students.forEach((student) => {
@@ -93,6 +107,6 @@ export const useStore = defineStore('store', {
     }
   },
   persist: {
-    enabled: true,
+    enabled: false,
   },
 });
