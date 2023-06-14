@@ -8,7 +8,7 @@ function generateStudents(length) {
   for (let i = 0; i < length; i++) {
     students.push({
       id: uuidv4(),
-      name: `學生${i + 1}`,
+      name: `測試用學生${i + 1}`,
       progressText: '',
       img: studentImg
     });
@@ -43,7 +43,7 @@ function generateCols(length, seatLimit = 10) {
   return cols;
 }
 
-const students = generateStudents(4);
+const students = generateStudents(2);
 const cols = generateCols(3);
 
 export const useStore = defineStore('store', {

@@ -6,8 +6,6 @@
           重新生成座位
         </v-btn>
       </template>
-
-
       <v-card>
         <v-card-title>
           <span class="text-h5">重新生成座位</span>

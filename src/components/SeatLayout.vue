@@ -10,11 +10,6 @@
     </v-row>
     <v-row>
       <v-col>
-        *若拖曳到超出限制的欄位，將會把最後一個學生放到未安排座位的學生名單中
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
         <v-container fluid>
           <v-row>
             <v-col cols="12">
@@ -27,7 +22,12 @@
                   </v-col>
                 </v-row>
                 <v-row>
-                  <v-col v-for="row in classroomStore.classroom" :key="row.id">
+                  <v-col>
+                    *若拖曳到超出限制的欄位，將會把最後一個學生放到未安排座位的學生名單中
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="3" v-for="row in classroomStore.classroom" :key="row.id">
                     <SeatColumn :row="row" :dragOptions="dragOptions" />
                   </v-col>
                 </v-row>
