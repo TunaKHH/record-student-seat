@@ -1,24 +1,25 @@
 <template>
   <v-card :color="rowColor">
     <v-card-title>
-      {{ localRow.title }}
+      {{ row.title }}
       <br>
-      (人數/上限: {{ localRow.seats?.length }}/ {{ localRow.seatLimit }})
-    </v-card-title>
-    <draggable style="min-height: 300px;" v-model="localRow.seats" :dragOptions="dragOptions" group="group1"
-      @start="drag = true" @end="drag = false" item-key="id">
-      <template #item="{ element }">
-        <SeatCard :student="element" @updateStudent="updateStudent" />
-      </template>
-    </draggable>
+      (人數/上限: {{ row.seats?.length }}/ {{ row.seatLimit < 0 ? '無限制' : row.seatLimit }}) </v-card-title>
+        <draggable style="min-height: 300px;" v-model="localRow.seats" :dragOptions="dragOptions" group="group1"
+          @start="drag = true" @end="drag = false" item-key="id">
+          <template #item="{ element }">
+            <SeatCard :student="element" @updateStudent="updateStudent" />
+          </template>
+        </draggable>
   </v-card>
   <div>
-    {{ localRow.seats }}
+    {{ row.seats }}
   </div>
 </template>
 <script>
 import draggable from 'vuedraggable';
 import SeatCard from './SeatCard.vue'
+import { useStore } from '@/store/classroom';
+
 export default {
   props: {
     row: {
@@ -31,17 +32,19 @@ export default {
     },
   },
   data() {
+    const classroomStore = useStore();
     return {
-      localRow: {},
+      classroomStore,
+      localRow: this.row,
       rowColor: '#ceffed',
     }
   },
   mounted() {
-    this.localRow = this.row;
-    if (this.localRow.title == '未安排座位') {
+    if (this.row.title == '未安排座位') {
       this.rowColor = '#ffcece';
     }
   },
+
   methods: {
     updateStudent({ student, progressText }) {
       // 取得目前所在的座位id

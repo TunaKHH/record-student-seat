@@ -1,12 +1,13 @@
 import { defineStore } from 'pinia';
 import studentImg from '../assets/student.png'
+import { v4 as uuidv4 } from 'uuid';
 
 // 生成學生假資料 給seats用
 function generateStudents(length) {
   const students = [];
   for (let i = 0; i < length; i++) {
     students.push({
-      id: i + 1,
+      id: uuidv4(),
       name: `學生${i + 1}`,
       progressText: '',
       img: studentImg
@@ -16,20 +17,22 @@ function generateStudents(length) {
 }
 
 // 生成每列的假資料
-function generateCols(length) {
+function generateCols(length, seatLimit = 2) {
   const cols = [];
   for (let i = 0; i < length; i++) {
     cols.push({
-      id: i + 1,
+      id: uuidv4(),
       title: `第${i + 1}排`,
-      seatLimit: 3,
+      seatLimit,
       seats: []
     });
   }
   return cols;
 }
 
-const students = generateStudents(10);
+
+
+const students = generateStudents(4);
 const cols = generateCols(3);
 
 export const useStore = defineStore('store', {
@@ -37,7 +40,7 @@ export const useStore = defineStore('store', {
     return {
       classroom: [
         {
-          id: 1,
+          id: uuidv4(),
           title: '未安排座位',
           seatLimit: -1,
           seats: students
@@ -45,22 +48,34 @@ export const useStore = defineStore('store', {
         ...cols
       ]
     }
-
-
-
   },
   actions: {
-    // for each 新增未安排座位的學生
+    // 新增學生們到未安排的座位
     addStudents(students) {
       students.forEach((student) => {
-        this.unseated.push({
+        // 取得classroom下最大的學生id
+        // 新增學生到未安排的座位
+        this.classroom[0].seats.push({
+          id: uuidv4(),
           name: student,
           progressText: '',
           img: studentImg
         });
       });
-
-
+    }
+    ,
+    // 重新生成欄位和座位
+    regenerateColsAndSeats(colsLength, seatLimit) {
+      const cols = generateCols(colsLength, seatLimit);
+      this.classroom = [
+        {
+          id: uuidv4(),
+          title: '未安排座位',
+          seatLimit: -1,
+          seats: students
+        },
+        ...cols
+      ];
     }
   },
   persist: {

@@ -20,16 +20,16 @@
                   </v-col>
                 </v-row>
                 <v-row>
-                  <v-col v-for="row in classroom" :key="row.id">
+                  <v-col v-for="row in classroomStore.classroom" :key="row.id">
                     <SeatColumn :row="row" :dragOptions="dragOptions" />
                   </v-col>
                 </v-row>
-                <v-row>
+                <!-- <v-row>
                   <v-col>
-                    <h1>classroom</h1>
-                    {{ classroom }}
+                    <h1>classroomStore.classroom</h1>
+                    {{ classroomStore.classroom }}
                   </v-col>
-                </v-row>
+                </v-row> -->
               </v-container>
             </v-col>
           </v-row>
@@ -39,14 +39,12 @@
   </v-container>
 </template>
 <script setup>
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { useStore } from '@/store/classroom';
 import SeatColumn from '@/components/SeatColumn';
 import AddStudentDialog from '@/components/AddStudentDialog';
 
-let classroom = ref([]);
 const classroomStore = useStore();
-classroom.value = classroomStore.classroom;
 
 const dragOptions = computed(() => ({
   animation: 100,
@@ -54,7 +52,6 @@ const dragOptions = computed(() => ({
   disabled: false,
   ghostClass: 'ghost',
 }));
-
 
 const updateData = (students) => {
   classroomStore.addStudents(students);
@@ -66,7 +63,7 @@ classroomStore.$subscribe((mutation, state) => {
   const unassignedRow = state.classroom.find((row) => row.title == '未安排座位');
   state.classroom.forEach((row) => {
     if (row.title != '未安排座位') {
-      if (row.seats.length > row.seatLimit) {
+      if (row.seats?.length > row.seatLimit) {
         const unassignedStudents = row.seats.splice(row.seatLimit);
         unassignedRow.seats.push(...unassignedStudents);
       }
